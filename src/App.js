@@ -8,7 +8,7 @@ function App() {
       <User name="Aishwarya" age={24} />
       <Job position="Web Developer" salary={1700000} company="Google" />
       <br />
-      <User name="Akhila" age={24} />
+      <User name="Apoorva" age={24} />
       <Job position="Software Developer" salary={1200000} company="IBM" />
     </div>
   );
