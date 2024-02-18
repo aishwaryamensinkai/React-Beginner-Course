@@ -61,7 +61,14 @@ function App() {
     setNewTask(event.target.value);
   };
   const addTask = () => {
-    let a;
+    setTodoList([...todoList, newTask]);
+  };
+  const deleteTask = (taskName) => {
+    const newTodoList = todoList.filter((task) => {
+      if (task === taskName) return false;
+      else return true;
+    });
+    setTodoList(newTodoList);
   };
 
   //return function
@@ -163,7 +170,17 @@ function App() {
           <input onChange={handleChange} />
           <button onClick={addTask}>Add Task</button>
         </div>
-        <div className="list">{newTask}</div>
+        <div className="list">
+          {todoList.map((task) => {
+            return (
+              <div>
+                <p>
+                  {task} <button onClick={() => deleteTask(task)}>X</button>
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
