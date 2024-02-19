@@ -3,6 +3,7 @@ import { User } from "./User";
 import { Planets } from "./Planets";
 import { useState } from "react";
 import { Task } from "./Task";
+import { Text } from "./Text";
 
 function App() {
   const cname = 2;
@@ -86,6 +87,8 @@ function App() {
       })
     );
   };
+
+  const [showValue, setShowValue] = useState(false);
 
   //return function
   return (
@@ -199,6 +202,19 @@ function App() {
             );
           })}
         </div>
+      </div>
+      <br />
+      Learning about the component Lifecycle (mounting, updating, unmounting)
+      <div className="App">
+        <button
+          onClick={() => {
+            setShowValue(!showValue);
+          }}
+        >
+          Show Text
+        </button>
+        <br />
+        {showValue && <Text />}
       </div>
     </>
   );
