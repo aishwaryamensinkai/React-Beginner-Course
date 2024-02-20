@@ -1,11 +1,14 @@
 export const Planets = (props) => {
   return (
-    <div>
+    <b>
       {props.isGasPlanet ? (
-        <h4>I'm {props.name}. And I'm gas Planet</h4>
+        <i>
+          I'm {props.name}. And I'm gas Planet
+          <br />
+        </i>
       ) : (
-        <p></p>
+        <i></i>
       )}
-    </div>
+    </b>
   );
 };

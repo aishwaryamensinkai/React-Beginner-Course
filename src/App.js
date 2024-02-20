@@ -1,9 +1,10 @@
 import "./App.css";
 import { User } from "./User";
 import { Planets } from "./Planets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Task } from "./Task";
 import { Text } from "./Text";
+// import axios from "axios";
 
 function App() {
   const cname = 2;
@@ -90,6 +91,44 @@ function App() {
 
   const [showValue, setShowValue] = useState(false);
 
+  const [catFact, setCatFact] = useState("");
+  // axios.get("https://catfact.ninja/fact").then((res) => {
+  //   setCatFact(res.data.fact);
+  // });
+
+  useEffect(() => {
+    fetchCatInformation();
+  }, []);
+
+  const fetchCatInformation = () => {
+    fetch("https://catfact.ninja/fact")
+      .then((res) => res.json())
+      .then((data) => {
+        setCatFact(data.fact);
+      });
+  };
+
+  const [inputName, setInputName] = useState("");
+  const [predictedAge, setPredictedAge] = useState(null);
+  const fetchAgeData = () => {
+    fetch("https://api.agify.io/?name=" + inputName)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setPredictedAge(data.age);
+      });
+  };
+
+  const [generatedExcuse, setGeneratedExcuse] = useState("");
+  const fetchExcuse = (excuse) => {
+    fetch(`https://excuser-three.vercel.app/v1/excuse/${excuse}/`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setGeneratedExcuse(data[0].excuse);
+      });
+  };
+
   //return function
   return (
     <>
@@ -118,11 +157,9 @@ function App() {
         The below code is example for operations on list of users/working with
         object using map function and returning the User component.
         <div className="App Extracss">
-          <p>
-            {users.map((user, key) => {
-              return <User name={user.name} age={user.age} />;
-            })}
-          </p>
+          {users.map((user, key) => {
+            return <User name={user.name} age={user.age} />;
+          })}
         </div>
         Example code to create a new component to just display non gas planets.
         <div className="Extracss">
@@ -160,7 +197,7 @@ function App() {
             <p>
               Hey!!
               <br />
-              <p>Aishwarya</p> here.
+              <i>Aishwarya</i> here.
             </p>
           )}
         </div>
@@ -170,7 +207,7 @@ function App() {
           <p>
             Hey!!
             <br />
-            <p style={{ color: textColor }}>Aishwarya</p> here.
+            <i style={{ color: textColor }}>Aishwarya</i> here.
           </p>
         </div>
         <br />
@@ -216,6 +253,38 @@ function App() {
         <br />
         {showValue && <Text />}
       </div>
+      <br />
+      How To Fetch Data From an API in React
+      <br />
+      1. Cat Information
+      <div className="App">
+        <button onClick={fetchCatInformation}>Fetch Cat Information</button>
+        <p>{catFact}</p>
+      </div>
+      <br />
+      2. Predict the age of person by name.
+      <div className="App">
+        <input onChange={(event) => setInputName(event.target.value)}></input>
+        <br />
+        <br /> Entered Name is :{" "}
+        <i>
+          <b>{inputName}</b>
+        </i>
+        <br />
+        <br />
+        <button onClick={() => fetchAgeData()}>Predict Age</button>
+        <h1>{predictedAge}</h1>
+      </div>
+      <br />
+      3. Getting a reason for 3 different situation
+      <div className="App">
+        <h1> Generate An Excuse </h1>
+        <button onClick={() => fetchExcuse("party")}> Party</button>
+        <button onClick={() => fetchExcuse("family")}> Family</button>
+        <button onClick={() => fetchExcuse("office")}> Office </button>
+
+        <p> {generatedExcuse} </p>
+      </div>
     </>
   );
 }
@@ -223,10 +292,10 @@ function App() {
 const Job = (props) => {
   return (
     <div>
-      <h3>
+      <i>
         I'm a {props.position} working for {props.company} and the pay scale is{" "}
         {props.salary}
-      </h3>
+      </i>
     </div>
   );
 };
