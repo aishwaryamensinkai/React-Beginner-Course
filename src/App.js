@@ -4,6 +4,11 @@ import { Planets } from "./Planets";
 import { useEffect, useState } from "react";
 import { Task } from "./Task";
 import { Text } from "./Text";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Home } from "./Pages/Home";
+import { Menu } from "./Pages/Menu";
+import { Contact } from "./Pages/Contact";
+import { ErrorPage } from "./Pages/ErrorPage";
 // import axios from "axios";
 
 function App() {
@@ -284,6 +289,18 @@ function App() {
         <button onClick={() => fetchExcuse("office")}> Office </button>
 
         <p> {generatedExcuse} </p>
+      </div>
+      <br />
+      React Router Dom
+      <div>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </Router>
       </div>
     </>
   );
