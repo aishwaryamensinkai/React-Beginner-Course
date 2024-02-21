@@ -4,13 +4,15 @@ import { Planets } from "./Planets";
 import { createContext, useEffect, useState } from "react";
 import { Task } from "./Task";
 import { Text } from "./Text";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { Home } from "./Pages/Home";
 import { Menu } from "./Pages/Menu";
 import { Contact } from "./Pages/Contact";
 import { ErrorPage } from "./Pages/ErrorPage";
 import { NavBar } from "./Pages/NavBar";
 import { Profile } from "./Pages/Profile";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryApp } from "./Pages/QueryApp";
 // import axios from "axios";
 
 export const AppContext = createContext();
@@ -138,6 +140,8 @@ function App() {
       });
   };
   const [username, setUsername] = useState("Aishwarya");
+
+  const client = new QueryClient();
 
   //return function
   return (
@@ -317,6 +321,20 @@ function App() {
             </Routes>
           </Router>
         </AppContext.Provider>
+      </div>
+      <br />
+      React Query using useQuery Hook
+      <div className="App">
+        <QueryClientProvider client={client}>
+          <Router>
+            Navbar
+            <br />
+            <Link to="/query">Query</Link> &nbsp;
+            <Routes>
+              <Route path="/query" element={<QueryApp />} />
+            </Routes>
+          </Router>
+        </QueryClientProvider>
       </div>
     </>
   );
