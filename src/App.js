@@ -9,6 +9,7 @@ import { Home } from "./Pages/Home";
 import { Menu } from "./Pages/Menu";
 import { Contact } from "./Pages/Contact";
 import { ErrorPage } from "./Pages/ErrorPage";
+import { NavBar } from "./Pages/NavBar";
 // import axios from "axios";
 
 function App() {
@@ -292,8 +293,9 @@ function App() {
       </div>
       <br />
       React Router Dom
-      <div>
+      <div className="App">
         <Router>
+          <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
