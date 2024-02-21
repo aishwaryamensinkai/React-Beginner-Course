@@ -1,7 +1,7 @@
 import "./App.css";
 import { User } from "./User";
 import { Planets } from "./Planets";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Task } from "./Task";
 import { Text } from "./Text";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -10,7 +10,10 @@ import { Menu } from "./Pages/Menu";
 import { Contact } from "./Pages/Contact";
 import { ErrorPage } from "./Pages/ErrorPage";
 import { NavBar } from "./Pages/NavBar";
+import { Profile } from "./Pages/Profile";
 // import axios from "axios";
+
+export const AppContext = createContext();
 
 function App() {
   const cname = 2;
@@ -134,6 +137,7 @@ function App() {
         setGeneratedExcuse(data[0].excuse);
       });
   };
+  const [username, setUsername] = useState("Aishwarya");
 
   //return function
   return (
@@ -294,15 +298,25 @@ function App() {
       <br />
       React Router Dom
       <div className="App">
-        <Router>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </Router>
+        <AppContext.Provider value={{ username, setUsername }}>
+          <Router>
+            <NavBar />
+            <Routes>
+              {/* <Route path="/" element={<Home username={username} />} /> */}
+              <Route path="/" element={<Home />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/contact" element={<Contact />} />
+              {/* <Route
+                path="/profile"
+                element={
+                  <Profile username={username} setUsername={setUsername} />
+                }
+              /> */}
+              <Route path="/profile" element={<Profile />} />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+          </Router>
+        </AppContext.Provider>
       </div>
     </>
   );
