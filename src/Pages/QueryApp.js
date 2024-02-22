@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 export const QueryApp = () => {
-  const { isPending, data, error } = useQuery({
+  const {
+    data: catData,
+    isPending,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["cat"],
     queryFn: () =>
       fetch("https://catfact.ninja/fact")
@@ -20,7 +25,8 @@ export const QueryApp = () => {
 
   return (
     <h1>
-      <p>{data.fact}</p>
+      <p>{catData?.fact}</p>
+      <button onClick={refetch}> Update Data </button>
     </h1>
   );
 };
