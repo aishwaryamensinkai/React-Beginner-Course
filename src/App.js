@@ -141,7 +141,11 @@ function App() {
   };
   const [username, setUsername] = useState("Aishwarya");
 
-  const client = new QueryClient();
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: { refetchOnWindowFocus: false },
+    },
+  });
 
   //return function
   return (
