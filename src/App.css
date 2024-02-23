@@ -68,3 +68,7 @@
     transform: rotate(360deg);
   }
 }
+
+p {
+  color: red;
+}

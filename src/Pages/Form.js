@@ -4,16 +4,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 export const Form = () => {
   const schema = yup.object().shape({
-    fullName: yup.string().required(),
-    email: yup.string().email().required(),
-    age: yup.number().positive().integer().min(18).required(),
-    password: yup.string().min(4).max(20).required(),
+    fullName: yup.string().required("Full name is Required!"),
+    email: yup.string().email().required("Email is Required!"),
+    age: yup
+      .number()
+      .positive()
+      .integer()
+      .min(18)
+      .required("Age must be minimum 18!"),
+    password: yup.string().min(4).max(20).required("Password is Required!"),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null])
+      .oneOf([yup.ref("password"), null], "Passwords don't match")
       .required(),
   });
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
@@ -22,23 +31,23 @@ export const Form = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type="text" placeholder="Name..." {...register("fullName")} />
-      <br />
+      <p>{errors.fullName?.message}</p>
       <input type="text" placeholder="Email..." {...register("email")} />
-      <br />
+      <p>{errors.email?.message}</p>
       <input type="number" placeholder="Age..." {...register("age")} />
-      <br />
+      <p>{errors.age?.message}</p>
       <input
         type="password"
         placeholder="Password..."
         {...register("password")}
       />
-      <br />
+      <p>{errors.password?.message}</p>
       <input
         type="password"
-        placeholder="confirm Password..."
+        placeholder="Confirm Password..."
         {...register("confirmPassword")}
       />
-      <br />
+      <p>{errors.confirmPassword?.message}</p>
       <input type="submit" />
     </form>
   );
