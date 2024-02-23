@@ -11,6 +11,7 @@ import { Contact } from "./Pages/Contact";
 import { ErrorPage } from "./Pages/ErrorPage";
 import { NavBar } from "./Pages/NavBar";
 import { Profile } from "./Pages/Profile";
+import { Form } from "./Pages/Form";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QueryApp } from "./Pages/QueryApp";
 // import axios from "axios";
@@ -339,6 +340,11 @@ function App() {
             </Routes>
           </Router>
         </QueryClientProvider>
+      </div>
+      <br />
+      React-Hook-Form and YUP Tutorial | How to do Forms The Right Way
+      <div className="App">
+        <Form />
       </div>
     </>
   );
