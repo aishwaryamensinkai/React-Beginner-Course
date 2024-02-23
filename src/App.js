@@ -14,6 +14,7 @@ import { Profile } from "./Pages/Profile";
 import { Form } from "./Pages/Form";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QueryApp } from "./Pages/QueryApp";
+import { useToggle } from "./useToggle";
 // import axios from "axios";
 
 export const AppContext = createContext();
@@ -147,6 +148,8 @@ function App() {
       queries: { refetchOnWindowFocus: false },
     },
   });
+
+  const [isVisible, toggle] = useToggle();
 
   //return function
   return (
@@ -345,6 +348,12 @@ function App() {
       React-Hook-Form and YUP Tutorial | How to do Forms The Right Way
       <div className="App">
         <Form />
+      </div>
+      <br />
+      Custom Hooks Tutorial
+      <div className="App">
+        <button onClick={toggle}>{isVisible ? "Hide" : "Show"}</button>
+        {isVisible && <h1>Hidden Text</h1>}
       </div>
     </>
   );
