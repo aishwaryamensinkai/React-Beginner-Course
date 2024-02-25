@@ -16,6 +16,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QueryApp } from "./Pages/QueryApp";
 import { useToggle } from "./useToggle";
 import { Cat } from "./Components/Cat";
+import { Person } from "./Components/Person";
 // import axios from "axios";
 
 export const AppContext = createContext();
@@ -365,6 +366,17 @@ function App() {
             </Routes>
           </Router>
         </QueryClientProvider>
+      </div>
+      <br />
+      TypeScript | React Type Safety
+      <div className="App">
+        <Person
+          name="Pedro"
+          email="pedro@gmail.com"
+          age={21}
+          isMarried={true}
+          friends={["jessica", "jake", "jerry", "jasmine"]}
+        />
       </div>
     </>
   );
