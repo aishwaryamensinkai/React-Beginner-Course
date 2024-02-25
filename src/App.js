@@ -15,6 +15,7 @@ import { Form } from "./Pages/Form";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QueryApp } from "./Pages/QueryApp";
 import { useToggle } from "./useToggle";
+import { Cat } from "./Components/Cat";
 // import axios from "axios";
 
 export const AppContext = createContext();
@@ -149,7 +150,7 @@ function App() {
     },
   });
 
-  const [isVisible, toggle] = useToggle();
+  const { state: isVisible, toggle } = useToggle();
 
   //return function
   return (
@@ -354,6 +355,16 @@ function App() {
       <div className="App">
         <button onClick={toggle}>{isVisible ? "Hide" : "Show"}</button>
         {isVisible && <h1>Hidden Text</h1>}
+      </div>
+      <br />
+      <div className="App">
+        <QueryClientProvider client={client}>
+          <Router>
+            <Routes>
+              <Route path="/catdata" element={<Cat />} />
+            </Routes>
+          </Router>
+        </QueryClientProvider>
       </div>
     </>
   );
